@@ -1,0 +1,6 @@
+@FirstNetMongo_HostAddress = http://localhost:5293
+
+GET {{FirstNetMongo_HostAddress}}/api/Users/
+Accept: application/json
+
+###
