@@ -12,6 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
 builder.Services.AddSingleton<MongoDBServices>();
 
+// second mongodb
+// builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB_Planets"));
+builder.Services.AddSingleton<PlanetsService>();
+
 // automapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 

@@ -19,8 +19,8 @@ public class MongoDBServices
     public MongoDBServices(IOptions<MongoDBSettings> mongoDBSettings)
     {
         var client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
-        var database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
-        _usersCollection = database.GetCollection<Users>(mongoDBSettings.Value.CollectionName);
+        var database = client.GetDatabase(mongoDBSettings.Value.DataBaseProducts);
+        _usersCollection = database.GetCollection<Users>(mongoDBSettings.Value.CollectionProducts);
         // _usersCollection = database.GetCollection<BsonDocument>(mongoDBSettings.Value.CollectionName);
         // generic Parameters if you do not know with class or interface you are going to use --> new BsonDocument()
     }

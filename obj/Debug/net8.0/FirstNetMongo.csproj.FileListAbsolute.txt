@@ -45,3 +45,4 @@ C:\Users\Julio\Documents\GitHub\FirstNetMongo\obj\Debug\net8.0\FirstNetMongo.pdb
 C:\Users\Julio\Documents\GitHub\FirstNetMongo\obj\Debug\net8.0\FirstNetMongo.genruntimeconfig.cache
 C:\Users\Julio\Documents\GitHub\FirstNetMongo\obj\Debug\net8.0\ref\FirstNetMongo.dll
 C:\Users\Julio\Documents\GitHub\FirstNetMongo\bin\Debug\net8.0\AutoMapper.dll
+C:\Users\Julio\Documents\GitHub\FirstNetMongo\obj\Debug\net8.0\FirstNetMongo.sourcelink.json
