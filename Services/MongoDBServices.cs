@@ -21,12 +21,16 @@ public class MongoDBServices
         var client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
         var database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
         _usersCollection = database.GetCollection<Users>(mongoDBSettings.Value.CollectionName);
+        // _usersCollection = database.GetCollection<BsonDocument>(mongoDBSettings.Value.CollectionName);
+        // generic Parameters if you do not know with class or interface you are going to use --> new BsonDocument()
     }
 
     public async Task<List<Users>> GetAsync()
     {
         return await _usersCollection.Find(_ => true).ToListAsync();
         // return await _usersCollection.Find(new BsonDocument()).ToListAsync();
+        // _usersCollection.Find('true' or 'your filter').Skip(skipAmount).Limit(limitAmount).ToListAsync();
+        // if you want to get a especific amount of data you can use skip and limit
     }
 
     public async Task<Users> CreateAsync(Users user)
@@ -49,6 +53,9 @@ public class MongoDBServices
     public async Task DeleteAsync(string id)
     {
         var filter = Builders<Users>.Filter.Eq("Id", id);
+        // var builder = Builders<Users>.Filter
+        // var filter = builder.Eq(x => x.Id, id) & builder.Gt('Age', 18) & builder.Lt('Age', 30);
+        // another way to make a filter -> Biulder class
 
         await _usersCollection.DeleteOneAsync(filter);
         return;
