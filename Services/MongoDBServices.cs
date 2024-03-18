@@ -18,11 +18,17 @@ public class MongoDBServices
 
     public MongoDBServices(IOptions<MongoDBSettings> mongoDBSettings)
     {
-        var client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
+        MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
         var database = client.GetDatabase(mongoDBSettings.Value.DataBaseProducts);
         _usersCollection = database.GetCollection<Users>(mongoDBSettings.Value.CollectionProducts);
         // _usersCollection = database.GetCollection<BsonDocument>(mongoDBSettings.Value.CollectionName);
         // generic Parameters if you do not know with class or interface you are going to use --> new BsonDocument()
+        // Criar o índice único para o campo CPF
+        var indexKeysDefinition = Builders<Users>.IndexKeys.Ascending(x => x.Email);
+        CreateIndexOptions indexOptions = new CreateIndexOptions { Unique = true };
+        CreateIndexModel<Users> indexModel = new CreateIndexModel<Users>(indexKeysDefinition, indexOptions);
+
+        _usersCollection.Indexes.CreateOne(indexModel);
     }
 
     public async Task<List<Users>> GetAsync()

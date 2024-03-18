@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
 using AutoMapper;
+using MongoDB.Bson;
+using MongoDB.Driver;
 using FirstNetMongo.Domain.Models;
 using FirstNetMongo.Domain.Dtos;
 using FirstNetMongo.Services;
@@ -39,12 +41,25 @@ public class UsersController : ControllerBase
     [HttpPost]
     [ProducesResponseType<UserResponseDto>(StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<IActionResult> Post([FromBody] UserRequestDto user)
     {
-        var userRequest = _mapper.Map<UserRequestDto, Users>(user);
-        var userCreated = await _mongoDBServices.CreateAsync(userRequest);
-        var userResponse = _mapper.Map<Users, UserResponseDto>(userCreated);
-        return CreatedAtAction(nameof(Get), new { id = userResponse.Id }, userResponse);
+        try
+        {
+            var userRequest = _mapper.Map<UserRequestDto, Users>(user);
+            var userCreated = await _mongoDBServices.CreateAsync(userRequest);
+            var userResponse = _mapper.Map<Users, UserResponseDto>(userCreated);
+            return CreatedAtAction(nameof(Get), new { id = userResponse.Id }, userResponse);
+        }
+        catch (MongoWriteException ex)
+        {
+            // Captura a exceção caso ocorra uma violação de unicidade
+            if (ex.WriteError.Category == ServerErrorCategory.DuplicateKey)
+            {
+                return Conflict("Email already exists");
+            }
+            return BadRequest(ex);
+        }
     }
 
     [HttpPut("{id}")]

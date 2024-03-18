@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FirstNetMongo")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae415fd557498d659d771a9fa4ed12e601efec78")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b93cd1d1e8fbe70861f626dea24c0091458bbaec")]
 [assembly: System.Reflection.AssemblyProductAttribute("FirstNetMongo")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FirstNetMongo")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
